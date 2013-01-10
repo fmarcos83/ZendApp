@@ -7,7 +7,7 @@
  *
  * @category App
  * @package  Resource
- * @author   fmp245 <francisco.marcos@tic.alten.es>
+ * @author   Francisco Marcos <fmarcos83@gmail.com>
  * @license  BSD http://www.tid.es
  * @version  SVN: $ Revision: $
  * @date     $ Date: $
@@ -23,7 +23,7 @@ use App\File\RegexFileScanner as RegexFileScanner;
  *
  * @category App
  * @package  Resource
- * @author   fmp245 <francisco.marcos@tic.alten.es>
+ * @author   Francisco Marcos <fmarcos83@gmail.com>
  * @license  BSD http://www.tid.es
  * @link     Moduleconfig
  **/

@@ -23,7 +23,6 @@ namespace ZendApp\Error\Handler;
  * @category PHP
  * @package  Error
  * @author   Francisco Marcos <fmarcos83@gmail.com>
- * @license  TID http://www.tid.es
  * @link     ErrorInterface
  **/
 interface ErrorInterface

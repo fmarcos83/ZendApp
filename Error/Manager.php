@@ -65,7 +65,7 @@ class Manager
      * sets PHP built-in error handler
      *
      * @return null
-     * @author fmp245 <francisco.marcos@tic.alten.es>
+     * @author Francisco Marcos <fmarcos83@gmail.com>
      **/
     static function unregisterAll()
     {

@@ -7,8 +7,7 @@
  * @category   PHP
  * @package    IMGlobal
  * @subpackage Error
- * @author     fmp245 <francisco.marcos@tic.alten.es>
- * @license    TID http://www.tid.es
+ * @author     Francisco Marcos <fmarcos83@gmail.com>
  * @version    SVN: $ Revision: $
  * @date       $ Date: $
  * @link       Exception
@@ -23,8 +22,7 @@ namespace IMGlobal\Error;
  *
  * @category PHP
  * @package  Navision
- * @author   fmp245 <francisco.marcos@tic.alten.es>
- * @license  TID http://www.tid.es
+ * @author   Francisco Marcos <fmarcos83@gmail.com>
  * @link     Exception
  **/
 class Exception extends \Exception
