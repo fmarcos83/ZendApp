@@ -12,5 +12,5 @@ Features
 Todo
 -----
 - create tests
-
 - add project to travis
+- dependencies with composer
