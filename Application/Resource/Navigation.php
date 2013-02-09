@@ -23,7 +23,7 @@ declare(encoding='UTF-8');
  * @package  Application
  * @author   Francisco Marcos <fmarcos83@gmail.com>
  * @throw    Exception
- * @license  GNU http://
+ * @license  GNU http://www.gnu.org/licenses/gpl.html
  * @link     ZendApp_Application_Resource_Navigation
  **/
 class ZendApp_Application_Resource_Navigation extends
@@ -62,7 +62,7 @@ Zend_Application_Resource_ResourceAbstract
     }
 
     /**
-     * sets this resource configuration from config file
+     * sets this resource configuration from yaml config file
      *
      * @param (String) $configFile pathname for navigation config file
      *
