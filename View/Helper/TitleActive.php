@@ -33,10 +33,9 @@ extends Zend_View_Helper_Abstract
      **/
     public function titleActive()
     {
-        //TODO check if navigation is enabled
         $label = "";
         $activePage = $this->view->navigation()->findOneBy('active', true);
-        $label = $activePage->get('label');
+        $label = ($activePage)?$activePage->get('label'):"";
         return $label;
     }
 }
