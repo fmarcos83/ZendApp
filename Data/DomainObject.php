@@ -49,8 +49,7 @@ class DomainObject
         if (!count($data)) {
             throw new DomainObjectException("\$data cannot be an empty array");
         }
-        $properties = array_keys($data);
-        array_walk($properties, function ($key, $value) {strtolower($value);} );
+        $properties = array_map('strtolower', array_keys($data));
         $values = array_values($data);
         $this->data = array_combine($properties, $values);
     }
@@ -66,7 +65,7 @@ class DomainObject
      **/
     private function _checkProperty($property)
     {
-        if (!array_key_exists(strtolower($property), $this->data)) {
+        if (!array_key_exists($property, $this->data)) {
             throw new DomainObjectException(
                 "$property is not present in this domain object"
             );
