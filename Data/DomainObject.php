@@ -75,12 +75,19 @@ class DomainObject
     /**
      * exports current data array property
      *
+     * @params (mixed) object id you don't want to export
+     *
      * @return array
      * @author Francisco Marcos <fmarcos83@gmail.com>
      **/
     public function toArray()
     {
-        return $this->data;
+        $data = $this->data;
+        $excludeKeys = func_get_args();
+        $returnData = (count($excludeKeys))?
+            array_diff_key($data, array_flip($excludeKeys))
+            :$data;
+        return $returnData;
     }
 
     /**
