@@ -91,6 +91,21 @@ class DomainObject
     }
 
     /**
+     * injects a dictionary on POPO object according to setter rules
+     * TODO:add tests for this method
+     *
+     * @return null
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     **/
+    public function setData(array $data)
+    {
+        foreach($data as $key=>$value)
+        {
+            $this->{$key} = $value;
+        }
+    }
+
+    /**
      * sets a property in the domain object on instantiation
      * throws exception otherwise
      *
