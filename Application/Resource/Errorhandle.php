@@ -30,7 +30,7 @@ use ZendApp\Error\Manager as errManager;
  * @link     default
  **/
 class Errorhandle
-extends Zend_Application_Resource_ResourceAbstract
+extends \Zend_Application_Resource_ResourceAbstract
 {
     public function init()
     {
