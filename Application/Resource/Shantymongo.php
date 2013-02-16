@@ -31,7 +31,7 @@ namespace ZendApp\Application\Resource;
  * @link       default
  **/
 class Shantymongo
-extends Zend_Application_Resource_ResourceAbstract{
+extends \Zend_Application_Resource_ResourceAbstract{
     public function init()
     {
         $options = $this->getOptions();
