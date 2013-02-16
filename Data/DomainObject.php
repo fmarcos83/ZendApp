@@ -32,6 +32,9 @@ use ZendApp\Data\Exception\DomainObject as DomainObjectException;
  **/
 class DomainObject
 {
+    //TODO necesary to add an id_key
+    //TO not limity id to an implementation
+
     protected $data = array();
 
     /**
