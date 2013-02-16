@@ -41,7 +41,7 @@ extends \Zend_Application_Module_Bootstrap
      * @return null
      * @author Francisco Marcos <fmarcos83@gmail.com>
      **/
-    public function __construct(\Zend_Application $application)
+    public function __construct($application)
     {
         parent::__construct($application);
         $this->init();
