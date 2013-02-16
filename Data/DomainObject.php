@@ -40,6 +40,10 @@ class DomainObject
      *
      * @param (array) $data dictionary to instantiate POPO's
      *
+     * @throw ZendApp\Data\Exception\DomainObject if $data property is empty
+     *                                            and any dictionary key is no
+     *                                            ctype_alpha
+     *
      * @return null
      * @author Francisco Marcos <fmarcos83@gmail.com>
      **/
@@ -49,6 +53,9 @@ class DomainObject
         if (!count($data)) {
             throw new DomainObjectException("\$data cannot be an empty array");
         }
+        array_walk($data, function($value,$key){if(!ctype_alpha($key)){
+            throw new DomainObjectException("\$data must be a dictionary with alpha key values");
+        }});
         $properties = array_map('strtolower', array_keys($data));
         $values = array_values($data);
         $this->data = array_combine($properties, $values);
@@ -60,6 +67,7 @@ class DomainObject
      * @param (String) $property the property to check
      *
      * @throw ZendApp\Data\Exception\DomainObject
+     *
      * @return null
      * @author Francisco Marcos <fmarcos83@gmail.com>
      **/
@@ -92,15 +100,16 @@ class DomainObject
 
     /**
      * injects a dictionary on POPO object according to setter rules
-     * TODO:add tests for this method
+     *
+     * @param (array) $data dictionary to add values when object
+     *                      has been instantiated
      *
      * @return null
      * @author Francisco Marcos <fmarcos83@gmail.com>
      **/
     public function setData(array $data)
     {
-        foreach($data as $key=>$value)
-        {
+        foreach ($data as $key=>$value) {
             $this->{$key} = $value;
         }
     }
@@ -113,6 +122,7 @@ class DomainObject
      * @param (String) $value    property value
      *
      * @throw ZendApp\Data\Exception\DomainObject
+     *
      * @return null
      * @author Francisco Marcos <fmarcos83@gmail.com>
      **/
@@ -133,6 +143,7 @@ class DomainObject
      * @param (String) $property the POPO's property value to retrieve
      *
      * @throw ZendApp\Data\Exception\DomainObject
+     *
      * @return mixed
      * @author Francisco Marcos <fmarcos83@gmail.com>
      **/
