@@ -6,7 +6,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 {
     protected function getCleanMock($className)
     {
-        $class = new ReflectionClass($className);
+        $class = new \ReflectionClass($className);
         $methods = $class->getMethods();
         $stubMethods = array();
         foreach ($methods as $method) {
