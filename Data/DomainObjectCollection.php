@@ -33,7 +33,6 @@ class DomainObjectCollection implements \Iterator, \Countable
 
     public function notifyAccess(){}
 
-    do
     public function add(DomainObject $domainObject)
     {
         $this->notifyAccess();
