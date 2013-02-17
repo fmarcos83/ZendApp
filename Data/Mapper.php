@@ -1,6 +1,6 @@
 <?php
 /**
- * class to implement abstract datamappers
+ * class to implement datamappers
  *
  * PHP version 5.3
  *
@@ -22,7 +22,7 @@ use ZendApp\Data\DomainObject as DomainObject;
 use ZendApp\Data\DataGateway\DataGatewayInterface as DataGatewayInterface;
 
 /**
- * Mapper class
+ * Mapper class class to implement
  *
  * @category Data
  * @package  ZendApp
@@ -33,45 +33,146 @@ use ZendApp\Data\DataGateway\DataGatewayInterface as DataGatewayInterface;
 abstract class Mapper
 {
     protected $dataGateway = null;
-    protected $POPOClassName = '';
+    protected $DomainObjectClassName = '';
 
-    public function __construct(DataGatewayInterface $gateway=null)
-    {
+    /**
+     * creates a new Mapper instance
+     * overwritting $dataGateway and $DomainObjectClassName if present
+     * in constructor
+     * !!NOTE good practice with this abstract class is extend it
+     * setting $dataGateway on init method and DomainObjectClassName
+     * on property implmentation
+     *
+     * @param (DataGatewayInterface) $gateway   implementation of dataGatewayInterface for
+     *                                          storage abstraction
+     * @param (String)               $className domainObjectClassName this mapper is attached
+     *                                          to
+     *
+     * @throw ZendApp\Data\Exception\Mapper
+     * @return null
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     **/
+    public final function __construct(
+        DataGatewayInterface $gateway=null,
+        $className=null
+    ) {
         if (!empty($gateway)) {
-            $this->dataGateway = $gateway;
+            $this->setDataGateway($gateway);
+        }
+        if (!empty($className)) {
+            $this->setDomainObjectClassName($className);
+        }
+        if (empty($this->dataGateway)) {
+            throw new MapperException("DataGateway is required");
+        }
+        if (empty($this->DomainObjectClassName)) {
+            throw new MapperException("DomainObjectClassName is required");
         }
         $this->init();
     }
 
-    public function setDataGateway(DataGatewayInterface $gateway)
+    /**
+     * setter selfexplained
+     *
+     * @param (String) $className domainObjectclassName
+     *
+     * @return null
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     **/
+    protected function setDomainObjectClassName($className)
+    {
+        $this->DomainObjectClassName = $className;
+    }
+
+    /**
+     * setter selfexplained
+     *
+     * @param (DataGatewayInterface) $gateway dataGateway implementation
+     *                                        interface
+     *
+     * @return null
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     **/
+    protected function setDataGateway(DataGatewayInterface $gateway)
     {
         $this->dataGateway = $gateway;
     }
 
-    public function save(DomainObject $popo){
-        if (empty($popo->id)) {
-            $this->insert($popo);
-        }else{
-            $this->update($popo);
-        }
+    /**
+     * method to provide custom initialization on child classes
+     *
+     * @return null
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     **/
+    public function init()
+    {
     }
 
-    public   function init(){}
+    /**
+     * redirects save to insert or update methods
+     *
+     * @param (DomainObject) $domainObject to save on persistence layer
+     *
+     * @return null
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     **/
+    public function save(DomainObject $domainObject)
+    {
+        //TODO this checking should be done not relying on an
+        //instance property if not a method like getModelId
+        $methodName = (empty($domainObject->id))?'insert':'update';
+        $this->{$methodName}($domainObject);
+    }
 
-    abstract function insert(DomainObject $popo);
+    /**
+     * abstract method to implment
+     *
+     * @param (DomainObject) $domainObject to operate with
+     *
+     * @return null
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     **/
+    abstract function insert(DomainObject $domainObject);
 
-    abstract function update(DomainObject $popo);
+    /**
+     * abstract method to implment
+     *
+     * @param (DomainObject) $domainObject to operate with
+     *
+     * @return null
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     **/
+    abstract function update(DomainObject $domainObject);
 
+    /**
+     * abstract method to implment
+     *
+     * @return mixed DomainObject|DomainObjectCollection
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     **/
     abstract function find();
 
-    abstract function delete(DomainObject $popo);
+    /**
+     * abstract method to implment
+     *
+     * @param (DomainObject) $domainObject to operate with
+     *
+     * @return null
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     **/
+    abstract function delete(DomainObject $domainObject);
 
+    /**
+     * creates a DomainObject through a dictionary
+     *
+     * @param (array) $data dictionary to create DomainObject instance
+     *
+     * @return null
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     **/
     public function createObject(array $data)
     {
-        $className = $this->POPOClassName;
+        $className = $this->DomainObjectClassName;
         return new $className($data);
     }
-
-
-
 }
