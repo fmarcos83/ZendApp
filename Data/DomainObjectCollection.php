@@ -7,14 +7,15 @@ namespace ZendApp\Data;
 use ZendApp\Data\DomainObject as DomainObject;
 use ZendApp\Data\Mapper as DataMapper;
 
-class DomainObjectCollection implements \Iterator
+class DomainObjectCollection implements \Iterator, \Countable
 {
-    protected $mapper;
-    protected $total = 0;
-    protected $raw = array();
+    private $mapper = null;
 
-    private $pointer = 0;
-    private $objects = array();
+    private $total  = 0;
+    private $raw    = array();
+
+    private $pointer  = 0;
+    private $objects  = array();
 
     public function __construct (array $raw=null, DataMapper $mapper=null) {
         if(!is_null($raw)&&(!is_null($mapper)))
@@ -25,9 +26,14 @@ class DomainObjectCollection implements \Iterator
         $this->mapper = $mapper;
     }
 
-    public function notifyAccess()
-    {}
+    public function count()
+    {
+        return $this->total;
+    }
 
+    public function notifyAccess(){}
+
+    do
     public function add(DomainObject $domainObject)
     {
         $this->notifyAccess();
@@ -35,12 +41,22 @@ class DomainObjectCollection implements \Iterator
         $this->total++;
     }
 
+    //TODO this method should go outside
+    //Method -> MethodObject
+
+    /**
+     * retrieves null or
+     *
+     * @return null
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     * @see http://www.refactoring.com/catalog/replaceMethodWithMethodObject.html
+     **/
     private function getDAO($num)
     {
-        $this->notifyAccess();
         if( $num >= $this->total || $num < 0 ){
-            return null;
+            return;
         }
+        //lazy load
         if(isset($this->objects[$num]))
         {
             return $this->objects[$num];
@@ -54,7 +70,22 @@ class DomainObjectCollection implements \Iterator
 
     public function current()
     {
+        $this->notifyAccess();
         return $this->getDAO($this->pointer);
+    }
+
+    public function rewind()
+    {
+        $this->pointer = 0;
+        return $this->current();
+    }
+
+    public function next()
+    {
+        $this->notifyAccess();
+        $row = $this->getDAO($this->pointer++);
+        (!empty($row))||$this->pointer--;
+        return $row;
     }
 
     public function key()
@@ -62,25 +93,9 @@ class DomainObjectCollection implements \Iterator
         return $this->pointer;
     }
 
-    public function next()
-    {
-        $row = $this->getDAO($this->pointer++);
-        if(empty($row)){
-            $this->pointer--;
-        }
-        return $row;
-    }
-
     public function valid()
     {
-        $isValid = !is_null($this->current());
-        return $isValid;
-    }
-
-    public function rewind()
-    {
-        $this->pointer = 0;
-        return $this->current();
+        return !is_null($this->current());
     }
 
 }
