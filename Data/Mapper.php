@@ -56,6 +56,7 @@ abstract class Mapper
         DataGatewayInterface $gateway=null,
         $className=null
     ) {
+        $this->init();
         if (!empty($gateway)) {
             $this->setDataGateway($gateway);
         }
@@ -68,7 +69,6 @@ abstract class Mapper
         if (empty($this->domainObjectClassName)) {
             throw new MapperException("domainObjectClassName is required");
         }
-        $this->init();
     }
 
     /**
@@ -79,7 +79,7 @@ abstract class Mapper
      * @return null
      * @author Francisco Marcos <fmarcos83@gmail.com>
      **/
-    protected function setdomainObjectClassName($className)
+    public function setdomainObjectClassName($className)
     {
         $this->domainObjectClassName = $className;
     }
@@ -93,7 +93,7 @@ abstract class Mapper
      * @return null
      * @author Francisco Marcos <fmarcos83@gmail.com>
      **/
-    protected function setDataGateway(DataGatewayInterface $gateway)
+    public function setDataGateway(DataGatewayInterface $gateway)
     {
         $this->dataGateway = $gateway;
     }
