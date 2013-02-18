@@ -33,14 +33,14 @@ use ZendApp\Data\DataGateway\DataGatewayInterface as DataGatewayInterface;
 abstract class Mapper
 {
     protected $dataGateway = null;
-    protected $DomainObjectClassName = '';
+    protected $domainObjectClassName = '';
 
     /**
      * creates a new Mapper instance
-     * overwritting $dataGateway and $DomainObjectClassName if present
+     * overwritting $dataGateway and $domainObjectClassName if present
      * in constructor
      * !!NOTE good practice with this abstract class is extend it
-     * setting $dataGateway on init method and DomainObjectClassName
+     * setting $dataGateway on init method and domainObjectClassName
      * on property implmentation
      *
      * @param (DataGatewayInterface) $gateway   implementation of dataGatewayInterface for
@@ -60,13 +60,13 @@ abstract class Mapper
             $this->setDataGateway($gateway);
         }
         if (!empty($className)) {
-            $this->setDomainObjectClassName($className);
+            $this->setdomainObjectClassName($className);
         }
         if (empty($this->dataGateway)) {
             throw new MapperException("DataGateway is required");
         }
-        if (empty($this->DomainObjectClassName)) {
-            throw new MapperException("DomainObjectClassName is required");
+        if (empty($this->domainObjectClassName)) {
+            throw new MapperException("domainObjectClassName is required");
         }
         $this->init();
     }
@@ -79,9 +79,9 @@ abstract class Mapper
      * @return null
      * @author Francisco Marcos <fmarcos83@gmail.com>
      **/
-    protected function setDomainObjectClassName($className)
+    protected function setdomainObjectClassName($className)
     {
-        $this->DomainObjectClassName = $className;
+        $this->domainObjectClassName = $className;
     }
 
     /**
@@ -172,7 +172,7 @@ abstract class Mapper
      **/
     public function createObject(array $data)
     {
-        $className = $this->DomainObjectClassName;
+        $className = $this->domainObjectClassName;
         return new $className($data);
     }
 }
