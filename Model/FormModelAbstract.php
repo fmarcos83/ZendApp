@@ -5,6 +5,7 @@ declare(encoding='UTF-8');
 namespace ZendApp\Model;
 
 use ZendApp\Model\HelperFactory as ModelHelperFactory;
+use ZendApp\Model\Exception\Model as ModelException;
 
 class FormModelAbstract
 {
@@ -16,6 +17,7 @@ class FormModelAbstract
 
     public final function __construct()
     {
+        $this->getFinder()->setModel($this);
         //Extension points
         $this->init();
     }
@@ -30,12 +32,12 @@ class FormModelAbstract
         //intentionally left blank
     }
 
-    protected function getDao()
+    public function getDao()
     {
         return ModelHelperFactory::getDao(get_called_class());
     }
 
-    protected function getCollection()
+    public function getCollection()
     {
         return ModelHelperFactory::getCollection(get_called_class());
     }

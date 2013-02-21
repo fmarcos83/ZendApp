@@ -14,7 +14,10 @@ class FormModel extends FormModelAbstract
         if (!$this->isValid($data)) {
             throw new ModelException;
         }
-        return $this->getFinder()->save($this->getDao()->setData($data));
+        $dao = $this->getDao()->setData($data);
+        $this->getFinder()->save($dao);
+        $this->getCollection()->add($dao);
+        return $dao;
     }
 
     public function get(array $query)

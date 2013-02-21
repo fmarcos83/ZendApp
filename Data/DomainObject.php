@@ -52,7 +52,7 @@ class DomainObject
      **/
     public function __construct(array $data=null)
     {
-        $data = (empty($data))?$this->data:$data;
+        $data = ($data)?:$this->data;
         if (!count($data)) {
             throw new DomainObjectException("\$data cannot be an empty array");
         }
@@ -62,6 +62,8 @@ class DomainObject
         $properties = array_map('strtolower', array_keys($data));
         $values = array_values($data);
         $this->data = array_combine($properties, $values);
+        //TODO test fluid interface
+        return $this;
     }
 
     /**
@@ -115,6 +117,8 @@ class DomainObject
         foreach ($data as $key=>$value) {
             $this->{$key} = $value;
         }
+        //TODO test fluid interface
+        return $this;
     }
 
     /**

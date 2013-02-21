@@ -20,15 +20,32 @@ class DomainObjectCollection implements \Iterator, \Countable
     public function __construct (array $raw=null, DataMapper $mapper=null) {
         if(!is_null($raw)&&(!is_null($mapper)))
         {
-            $this->raw = $raw;
-            $this->total = count($this->raw);
+            $this->setRawData($raw);
         }
         $this->mapper = $mapper;
+    }
+
+    public function setMapper(DataMapper $mapper)
+    {
+        $this->mapper = $mapper;
+    }
+
+    public function setRawData(array $raw)
+    {
+        $this->raw = $raw;
+        $this->total = count($raw);
+        return $this;
     }
 
     public function count()
     {
         return $this->total;
+    }
+
+    //TODO test this function
+    public function one()
+    {
+        return $this->current();
     }
 
     public function notifyAccess(){}
@@ -90,6 +107,13 @@ class DomainObjectCollection implements \Iterator, \Countable
     public function key()
     {
         return $this->pointer;
+    }
+
+    public function setData(array $data)
+    {
+        $this->objects = array();
+        $this->setRawData($data);
+        return $this;
     }
 
     public function valid()
