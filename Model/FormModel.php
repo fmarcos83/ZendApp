@@ -16,7 +16,6 @@ class FormModel extends FormModelAbstract
         }
         $dao = $this->getDao()->setData($data);
         $this->getFinder()->save($dao);
-        $this->getCollection()->add($dao);
         return $dao;
     }
 
