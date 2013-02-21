@@ -4,46 +4,26 @@ declare(encoding='UTF-8');
 
 namespace ZendApp\Model;
 
-class FormModel
+use ZendApp\Model\Exception\Model as ModelException;
+use ZendApp\Model\FormModelAbstract as FormModelAbstract;
+
+class FormModel extends FormModelAbstract
 {
-    //lazyloading forms registry
-    private $forms = array();
-    //lazyloading forms pointer
-    protected $formPointer = '';
-    protected $formsPrefixClassName = '';
-
-    public final function __construct()
+    public function save($data)
     {
-        //Extension points
-        $this->init();
-    }
-
-    public function init()
-    {
-        //intentionally left blank
-    }
-
-    public final function isValid(array $data)
-    {
-        return $this->getForm()->isValid($data);
-    }
-
-    public final function getFormType($type)
-    {
-        $this->formPointer = $typeName;
-        return $this->getForm();
-    }
-
-    private final function getForm()
-    {
-        $typeName = ucfirst($this->formPointer);
-        $className = '';
-        if(!isset($this->forms[$typeName]))
-        {
-            $className = implode('', array($this->formsPrefixClassName, $typeName));
-            $this->forms[$typeName] = new $className;
+        if (!$this->isValid($data)) {
+            throw new ModelException;
         }
-        return $this->forms[$typeName];
+        return $this->getFinder()->save($this->getDao()->setData($data));
     }
 
+    public function get(array $query)
+    {
+        return $this->getFinder()->find($query);
+    }
+
+    public function delete(array $query)
+    {
+        return $this->getFinder()->delete($query);
+    }
 }
