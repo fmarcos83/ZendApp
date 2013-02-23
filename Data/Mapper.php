@@ -13,10 +13,6 @@ class Mapper extends AbstractMapper
 {
     protected $identityMap;
 
-    public function init()
-    {
-        $this->setIdentityMap(new IdentityMap);
-    }
 
     public function setIdentityMap(IdentityMapInterface $identity)
     {
@@ -35,8 +31,6 @@ class Mapper extends AbstractMapper
         //db interaction
         $id = $this->dataGateway->insert($domainObject->toArray());
         $domainObject->id = $id;
-        //storing in identitymap
-        $this->identityMap->add($domainObject);
         return $id;
     }
 
@@ -45,7 +39,6 @@ class Mapper extends AbstractMapper
         $where = array('id=?'=>$popo->id);
         return $this->dataGateway->update($domainObject->toArray(), $where);
         //storing the new identitymap
-        $this->identityMap->add($domainObject);
     }
 
     public function delete(array $where = null)
@@ -56,12 +49,6 @@ class Mapper extends AbstractMapper
     public function createObject(array $data)
     {
         $id = $data['id'];
-        $object = null;
-        if ($this->identityMap->exists($id)) {
-            $object = $this->identityMap->get($id);
-        } else {
-            $object = $this->getDao()->setData($data);
-        }
-        return $object;
+        return $this->getDao()->setData($data);
     }
 }
