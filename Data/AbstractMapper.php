@@ -157,13 +157,10 @@ abstract class AbstractMapper
      *
      * @param (array) $data dictionary to create DomainObject instance
      *
-     * @return null
+     * @return DomainObject
      * @author Francisco Marcos <fmarcos83@gmail.com>
      **/
-    public function createObject(array $data)
-    {
-        return $this->getDao()->setData($data);
-    }
+    abstract function createObject(array $data);
 
     protected function getDao()
     {
