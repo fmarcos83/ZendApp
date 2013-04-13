@@ -48,7 +48,6 @@ class Mapper extends AbstractMapper
 
     public function createObject(array $data)
     {
-        $id = $data['id'];
         return $this->getDao()->setData($data);
     }
 }
