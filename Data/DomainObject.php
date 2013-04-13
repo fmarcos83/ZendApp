@@ -56,8 +56,8 @@ class DomainObject
         if (!count($data)) {
             throw new DomainObjectException("\$data cannot be an empty array");
         }
-        array_walk($data, function($value,$key){if(!ctype_alpha($key)){
-            throw new DomainObjectException("\$data must be a dictionary with alpha key values");
+        array_walk($data, function($value,$key){if(!ctype_alnum($key)){
+            throw new DomainObjectException("\$data must be a dictionary with alnum key values");
         }});
         $properties = array_map('strtolower', array_keys($data));
         $values = array_values($data);
