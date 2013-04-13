@@ -53,8 +53,8 @@ class HelperFactory
             $dgClassName = self::$mapClassNames[$name]['datagateway'];
             $daoClassName = self::$mapClassNames[$name]['dao'];
             $mapperClassName = self::$mapClassNames[$name]['mapper'];
-            $collectionName = self::$mapClassNames[$name]['collection'];
-            $dg = new $dgClassName($collectionName);
+            $collectionOptions = self::$mapClassNames[$name]['collection'];
+            $dg = new $dgClassName($collectionOptions);
             self::$finderRegister[$name] = new $mapperClassName(
                 $dg
             );
