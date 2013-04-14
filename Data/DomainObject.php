@@ -122,6 +122,9 @@ class DomainObject implements \IteratorAggregate
     {
         $data = $this->data;
         $excludeKeys = func_get_args();
+        $excludeKeys = (!count($excludeKeys))?
+            $this->getFilterKeys():
+            $excludeKeys;
         $returnData = (count($excludeKeys))?
             array_diff_key($data, array_flip($excludeKeys))
             :$data;
@@ -137,7 +140,7 @@ class DomainObject implements \IteratorAggregate
      **/
     public function getIterator()
     {
-        return new ArrayIterator($this->toArray($this->getFilterKeys()));
+        return new ArrayIterator($this->toArray());
     }
 
     /**
