@@ -16,8 +16,7 @@ declare(encoding='UTF-8');
 namespace ZendApp\Data\DataGateway;
 
 use ZendApp\Data\DataGateway\DataGatewayInterface;
-use Zend\Http\Client;
-use Zend\Json\Json;
+use Zend\Config\Factory;
 
 /**
  * RestDataGateway class
@@ -29,12 +28,13 @@ use Zend\Json\Json;
  * @link     ZendApp\Data\DataGateway\RestDataGateway
  * @see      http://framework.zend.com/manual/2.1/en/modules/zend.http.client.html
  **/
-class RestDataGateway implements DataGatewayInterface
+class ConfigFileDataGateway implements DataGatewayInterface
 {
-    private $_httpClient;
+    private $_config;
+    private $_sectionName;
 
     /**
-     * instantiates an httpClient zf2 component
+     * instantiates a config zf2 component
      *
      * @param (array) $options dictionary to populate the rest client
      *
@@ -51,13 +51,16 @@ class RestDataGateway implements DataGatewayInterface
             throw new \RuntimeException('Options cannot be empty');
         }
 
-        if (!isset($options['uri'])) {
-            throw new \RuntimeException('Uri is a required option parameter');
+        if (!isset($options['path'])) {
+            throw new \RuntimeException('path for configuration file is mandatory');
         }
 
-        $clientOptions = (!isset($options['options']))?null:$options['options'];
-        $this->_httpClient = new Client($options['uri'], $clientOptions);
-        $this->_httpClient->setHeaders(array('Accept'=>'application/json'));
+        if (!isset($options['section'])) {
+            throw new \RuntimeException('section name for these objects storage is mandatory');
+        }
+
+        $this->_config = Factory::fromFile($options['path'], true);
+        $this->_sectionName = $options['section'];
     }
 
     /**
@@ -89,15 +92,16 @@ class RestDataGateway implements DataGatewayInterface
         throw new NotImplementedException('Not implemented yet');
     }
 
-    public function find(array $where = array())
+    public function find(array $where=array())
     {
-        $response = $this->_httpClient->send();
-        if (!$response->isOk()) {
-            $message[] = $response->getStatusCode();
-            $message[] = $response->getReasonPhrase();
-            throw new \RuntimeException(implode(",",$message));
+        array_unshift($where, $this->_sectionName);
+        $auxConfig = clone $this->_config;
+        while(current($where)&&!is_null($this->_config))
+        {
+            $auxConfig = $auxConfig->offsetGet(current($where));
+            next($where);
         }
-        return Json::decode($response->getBody(), Json::TYPE_ARRAY);
+        return ($auxConfig)?$auxConfig->toArray():array();
     }
 
     /**

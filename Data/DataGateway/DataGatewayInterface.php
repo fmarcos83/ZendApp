@@ -7,6 +7,6 @@ interface DataGatewayInterface
 {
     function insert(array $data);
     function update(array $data, array $where);
-    function find();
+    function find(array $where);
     function delete(array $where);
 }

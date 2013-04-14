@@ -108,7 +108,7 @@ class DbDataGateway implements DataGatewayInterface
      * @return array rowset converted to array
      * @author Francisco Marcos <fmarcos83@gmail.com>
      **/
-    public function find()
+    public function find(array $where=array())
     {
         $result = call_user_func_array(
             array($this->_tableGateway, 'fetchAll'),
