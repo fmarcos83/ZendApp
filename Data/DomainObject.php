@@ -30,12 +30,13 @@ use ZendApp\Data\Exception\DomainObject as DomainObjectException;
  * @license  GNU http://www.gnu.org/licenses/gpl.txt
  * @link     DomainObject
  **/
-class DomainObject
+class DomainObject implements \IteratorAggregate
 {
     //TODO necesary to add an id_key
     //TO not limity id to an implementation
 
     protected $data = array();
+    protected $filterKeys = array();
 
     /**
      * instantiates POPO's according to protected data or array
@@ -64,6 +65,30 @@ class DomainObject
         $this->data = array_combine($properties, $values);
         //TODO test fluid interface
         return $this;
+    }
+
+    /**
+     * sets an array with values to filter the data this object returns
+     *
+     * @param (array) $keys an array with values to filter from $data
+     *
+     * @return null
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     **/
+    public function setFilterKeys(array $keys)
+    {
+        $this->filterKeys = $keys;
+    }
+
+    /**
+     * return the filter keys for this model
+     *
+     * @return null
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     **/
+    public function getFilterKeys()
+    {
+        return $this->filterKeys;
     }
 
     /**
@@ -101,6 +126,18 @@ class DomainObject
             array_diff_key($data, array_flip($excludeKeys))
             :$data;
         return $returnData;
+    }
+
+    /**
+     * IteratorAggregate public method to export this object to a Traversable
+     * instance
+     *
+     * @return null
+     * @author Francisco Marcos <fmarcos83@gmail.com>
+     **/
+    public function getIterator()
+    {
+        return new ArrayIterator($this->toArray($this->getFilterKeys()));
     }
 
     /**
