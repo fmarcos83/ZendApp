@@ -22,6 +22,8 @@ class Mapper extends AbstractMapper
     public function find(array $where = null)
     {
         $result = $this->dataGateway->find($where);
+        if (!is_array(current($result)))
+            return $this->createObject($result);
         return $this->getCollection()->setData($result);
     }
 
