@@ -32,7 +32,7 @@ class DomainObjectCollection implements \Iterator, \Countable
 
     public function setRawData(array $raw)
     {
-        $this->raw = $raw;
+        $this->raw = array_values($raw);
         $this->total = count($raw);
         return $this;
     }
