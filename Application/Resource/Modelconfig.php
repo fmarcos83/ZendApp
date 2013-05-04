@@ -2,6 +2,7 @@
 
 namespace ZendApp\Application\Resource;
 
+use ZendApp\Model\HelperFactory;
 
 class Modelconfig
     extends \Zend_Application_Resource_ResourceAbstract
@@ -9,6 +10,9 @@ class Modelconfig
     public function init()
     {
         $options = $this->getOptions();
-        print_r($options);
+        if(!isset($options['config']))
+            throw new \Exception('config file in yaml format is mandatory');
+        $config = new \Zend_Config_Yaml($options['config']);
+        HelperFactory::addMapsClassConfig($config->toArray());
     }
 }
