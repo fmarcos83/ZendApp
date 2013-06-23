@@ -9,12 +9,13 @@ For further info about https://github.com/facebook/scribe
 Dependencies
 ------------
 
-- PHP Thrift library in your
-    include_path
+- PHP Thrift library in your include_path
 
 - thrift scribe PHP compiled classes
+
     - FacebookService
     - scribe
+
     for clarity porposes Thrift generated
     packages should be stored in the proposed
     folder layout
