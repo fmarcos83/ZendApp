@@ -1,16 +1,13 @@
 Scribe client
-==
+=============
 
 A client for scribe it uses namespaces
-for autoloading porposes
+for autoloading porpouses.
 
-further info about scribe can be
-found
-
-https://github.com/facebook/scribe
+For further info about https://github.com/facebook/scribe
 
 Dependencies
----
+------------
 
 - PHP Thrift library in your
     include_path
