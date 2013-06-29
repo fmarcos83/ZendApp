@@ -6,7 +6,7 @@ loaders their dependencies and how to configure them
 via application.ini
 
 - Cli
-  ---
+  ===
 
   - requires
 
