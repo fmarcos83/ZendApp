@@ -5,8 +5,8 @@ A brief description about custom resource
 loaders their dependencies and how to configure them
 via application.ini
 
-- Cli
-  ===
+Cli
+---
 
   - requires
 
