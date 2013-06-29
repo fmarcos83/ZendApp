@@ -8,15 +8,15 @@ via application.ini
 Cli
 ---
 
-  - requires
+- requires
 
     - ZendApp\Console\Console
     - ZendApp\Controller\Request\Cli
     - ZendApp\Console\Strategy\AbstractStrategy
 
-  Adapts the web application so it can be used in console
+Adapts the web application so it can be used in console
 
-  - configuration
+- configuration
 
-    resources.cli =                   ; initializes and injects simple default strategy
-    resources.cli.strategy = className; initializes and injects custom cli strategy
+    - resources.cli =                   ; initializes and injects simple default strategy
+    - resources.cli.strategy = className; initializes and injects custom cli strategy
