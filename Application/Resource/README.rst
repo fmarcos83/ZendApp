@@ -10,9 +10,9 @@ Cli
 
 - requires
 
-    - ZendApp\Console\Console
-    - ZendApp\Controller\Request\Cli
-    - ZendApp\Console\Strategy\AbstractStrategy
+    - ZendApp\\Console\\Console
+    - ZendApp\\Controller\\Request\\Cli
+    - ZendApp\\Console\\Strategy\\AbstractStrategy
 
 Adapts the web application so it can be used in console
 
