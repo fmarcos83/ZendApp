@@ -8,7 +8,7 @@ via application.ini
 Cli
 ---
 
-### Adapts the web application so it can be used in console
+Adapts the web application so it can be used in console
 
 - requires
 
