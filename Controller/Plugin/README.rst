@@ -9,8 +9,11 @@ from configuration files it's necesary to set the correct pluginpaths
 - application.ini
 
   **Resources**
+
   - pluginpaths.ZendApp\Application\Resource\ = ZendApp/Application/Resource
+
   **Plugins**
+
   - pluginpaths.ZendApp\Controller\Plugin\ = ZendApp/Controller/Plugin
 
 ModuleErrorController
