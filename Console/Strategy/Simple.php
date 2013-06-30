@@ -44,7 +44,7 @@ class Simple extends AbstractStrategy
             $query .= '/'.$this->getOption($key);
         }
         $params = $this->getOption('params');
-        preg_match_all('/((?P<params>\w+)=(?P<values>\w+)),+/', $params, $matches);
+        preg_match_all('/((?P<params>\w+)=(?P<values>\w+))+/', $params, $matches);
         $queryParams = (count($matches['params']))?http_build_query(array_combine($matches['params'],$matches['values'])):array();
         $query = (count($queryParams))?$query.'?'.$queryParams:$query;
         $this->getRequest()->setRequestUri($query);
