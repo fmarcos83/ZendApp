@@ -25,4 +25,4 @@ Allows having an errorController per module
 
   - resource.frontcontroller.plugins.errormodule.stackIndex = 99
 
-  - resource.frontcontroller.plugins.errormodule.class = ZendApp\Controller\Plugin\ModuleErrorController
+  - resource.frontcontroller.plugins.errormodule.class = ZendApp\\Controller\\Plugin\\ModuleErrorController
