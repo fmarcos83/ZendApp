@@ -10,11 +10,11 @@ from configuration files it's necesary to set the correct pluginpaths
 
   **Resources**
 
-  - pluginpaths.ZendApp\Application\Resource\ = ZendApp/Application/Resource
+  - pluginpaths.ZendApp\\Application\\Resource\\ = ZendApp/Application/Resource
 
   **Plugins**
 
-  - pluginpaths.ZendApp\Controller\Plugin\ = ZendApp/Controller/Plugin
+  - pluginpaths.ZendApp\\Controller\\Plugin\\ = ZendApp/Controller/Plugin
 
 ModuleErrorController
 ---------------------
@@ -26,4 +26,3 @@ Allows having an errorController per module
   - resource.frontcontroller.plugins.errormodule.stackIndex = 99
 
   - resource.frontcontroller.plugins.errormodule.class = ZendApp\Controller\Plugin\ModuleErrorController
-
