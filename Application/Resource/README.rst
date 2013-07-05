@@ -30,5 +30,7 @@ Loads the controller action helper ZendApp\\Controller\\Action\\Helper\\CliViewR
     - ZendApp\\Controller\\Action\\Helper\\CliViewRenderer
 
 - configuration
+
     !!! TAKE into account that is necesary to add the library action helper path so it can work !!!!
+
     - resources.frontcontroller.actionhelperpaths.ZendApp\Controller\Action\Helper = {path}
