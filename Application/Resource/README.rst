@@ -22,6 +22,7 @@ Adapts the web application so it can be used in console
     - resources.cli.strategy = className; initializes and injects custom cli strategy
 
 Cliviewrenderer
+---------------
 
 Loads the controller action helper ZendApp\\Controller\\Action\\Helper\\CliViewRenderer into the Action_Helper_Broker
 
