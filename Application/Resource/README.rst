@@ -27,7 +27,7 @@ Viewrenderer
 Loads the controller action helper ZendApp\\Controller\\Action\\Helper\\CustomViewRenderer into the Action_Helper_Broker
 
 Once the controller is reached CustomViewRenderer will be initialized
-and on postDispatch method action helper will inject the configuration passed to
+and on postDispatch method, action helper will inject the configuration passed to
 the resource.
 
 - requires
