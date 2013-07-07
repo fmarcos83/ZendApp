@@ -49,9 +49,9 @@ class CustomViewRenderer extends Zend_Controller_Action_Helper_Abstract
     {
         $fc = $this->getFrontController();
         $bootstrap = $fc->getParam('bootstrap');
-        $res = $bootstrap->getPluginResource('viewrenderer');
+        $viewRendererResource = $bootstrap->getPluginResource('viewrenderer');
         $viewRenderer = Zend_Controller_Action_HelperBroker::
             getStaticHelper('viewRenderer');
-        $viewRenderer->initView(null, null, $res->getOptions());
+        $viewRenderer->initView(null, null, $viewRendererResource->getOptions());
     }
 }
