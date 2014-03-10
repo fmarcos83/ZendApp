@@ -64,9 +64,7 @@ implements Runnable
     public function run()
     {
         $this->getResolver();
-        $result = $this->auth->authenticate(
-            $this->getAdapter()
-        );
+        $result = $this->auth->authenticate($this->getAdapter());
         if (!$result->isValid())
             throw new UnathorizedException('invalid creadentials');
     }
