@@ -15,7 +15,7 @@
 
 declare(encoding='UTF-8');
 
-namespace IMGlobal\Error;
+namespace ZendApp\Error\Handler;
 
 /**
  * Exception

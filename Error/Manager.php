@@ -16,6 +16,7 @@
 declare(encoding='UTF-8');
 
 namespace ZendApp\Error;
+use ZendApp\Error\Handler\ErrorInterface;
 
 /**
  * Manager class
