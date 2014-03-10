@@ -7,10 +7,11 @@
  */
 namespace ZendApp\Controller\Plugin;
 
+use ZendApp\Application\Resource\Exception\RestAuth\Exception;
+use ZendApp\Application\Interfaces\Runnable;
 use Zend_Controller_Plugin_Abstract as PluginAbstract;
 use Zend_Controller_Request_Http;
 use Zend_Controller_Front;
-use Zend_Auth;
 
 /**
  * RestAuth
@@ -26,12 +27,15 @@ use Zend_Auth;
  */
 class RestAuth extends PluginAbstract
 {
+    public $result;
     public function routeStartup(Zend_Controller_Request_Http $request)
     {
-        $restAuthResource = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('restauth');
+        $restAuthResource = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getPluginResource('restauth');
         if (null === $restAuthResource) {
             throw new Exception('a restauth application resource is required in order to make this plugin work');
         }
-        $restAuthResouce->authenticate();
+        if (!$restAuthResource instanceof Runnable)
+            throw new Exception('restauth instance must implement a runnable interface');
+        $restAuthResource->run();
     }
 }
