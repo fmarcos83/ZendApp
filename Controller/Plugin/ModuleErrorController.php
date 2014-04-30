@@ -52,6 +52,14 @@ class ModuleErrorController extends Zend_Controller_Plugin_Abstract
     {
         $fc = \Zend_Controller_Front::getInstance();
         $errorHandler = $fc->getPlugin('Zend_Controller_Plugin_ErrorHandler');
+        //TODO: this can be outside to factory how errors can be
+        //handled outside
+        $cloneRequest = clone $request;
+        $cloneRequest->setActionName('error');
+        $cloneRequest->setControllerName('error');
+        $dispatcher = $fc->getDispatcher();
+        if(!$dispatcher->isDispatchable($cloneRequest))
+            return;
         $errorHandler->setErrorHandlerModule($request->getModuleName());
     }
 }
